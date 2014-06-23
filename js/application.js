@@ -1,5 +1,7 @@
+// determine if all elements in array is unique
 function is_unique(arr) {
 	arr.sort();
+	console.log(arr);
 	for (var i = 0; i < arr.length - 1; i++) {
 		if (arr[i] == arr[i + 1]) {
 			return false;
@@ -8,11 +10,8 @@ function is_unique(arr) {
 	return true;
 }
 
-function no_conflict(course_list, session_list) {
-	// already contain duplicate courses or dummy courses
-	if (! is_unique(course_list.slice(0))) {
-		return false;
-	}
+// get merged time list out of course and session list
+function get_time_list(course_list, session_list) {
 	var times = [];
 	var code, session, title;
 	for (var i = 0; i < course_list.length; i++) {
@@ -21,9 +20,19 @@ function no_conflict(course_list, session_list) {
 		session = session_list[i];
 		times = times.concat(json_dict[title][code]['sessions'][session]);
 	}
-	return is_unique(times);
+	return times;
 }
 
+// determine if time conflict occur
+function no_conflict(course_list, session_list) {
+	// already contain duplicate courses or dummy courses
+	if (! is_unique(course_list.slice())) {
+		return false;
+	}
+	return is_unique(get_time_list(course_list, session_list));
+}
+
+// show a flash message
 function flash(text) {
 	$('.flash').html(text);			
 	$('.flash').css('visibility', 'visible');
@@ -105,8 +114,8 @@ jQuery(document).ready(function() {
 		course_list.push(code);
 		session_list.push(session)
 		if (no_conflict(course_list, session_list)) {
-			// console.log(course_list);
-			// console.log(session_list);
+			console.log(course_list);
+			console.log(session_list);
 			$('#course_table').append('<tr><td class="course_entry_code">' + code + 
 				'</td><td class="course_entry_session">' + session + 
 				'</td><td><button class="course_delete_button">Delete</button></td></tr>');
@@ -128,6 +137,8 @@ jQuery(document).ready(function() {
 		// console.log(course_list);
 		// console.log(session_list);
 		$(this).parent().parent().remove();
-	})
+	});
+
+	console.log(get_time_map(['ELEC 1200', 'COMP 3711'], ['L1T1LA1C', 'L1T1']));
 
 });
