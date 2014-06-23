@@ -48,8 +48,10 @@ def map_time(s):
 def parse_datetime(dt_dict):
     ''' input ~ {'L3 (1012)': some html raw text containing sessions}
     '''
+    time_regex = re.compile(r'(?:Mo|Tu|We|Th|Fr|Sa|Su)+\s*[\d]{2}:' + \
+        r'[\d]{2}A?P?M\s*-\s*[\d]{2}:[\d]{2}A?P?M')
     for k in dt_dict:
-        dt_dict[k] = re.findall(r'\w+ [\d: -PM]{17}', dt_dict[k])
+        dt_dict[k] = re.findall(time_regex, dt_dict[k])
     dt, lec, tut, lab = {}, {}, {}, {}
     for k, v in dt_dict.iteritems():
         dt[k.split(' ')[0]] = reduce(add, map(map_time, v), [])

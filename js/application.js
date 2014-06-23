@@ -49,6 +49,7 @@ jQuery(document).ready(function() {
 	var titles = Object.keys(json_dict);
 	var codes, sessions;
 	var title, code, session;
+	var add_show_table_button = true;
 	titles.sort();
 
 	// init empty course list
@@ -119,6 +120,11 @@ jQuery(document).ready(function() {
 			$('#course_table').append('<tr><td class="course_entry_code">' + code + 
 				'</td><td class="course_entry_session">' + session + 
 				'</td><td><button class="course_delete_button">Delete</button></td></tr>');
+			// if first course added show 'show table' button
+			if (add_show_table_button) {
+				add_show_table_button = false;
+				$('#course_table').after('<button id="show_table">Show my timetable</button>');
+			}
 		} else {
 			// prompt a flash message
 			flash('Sorry, time conflict! :(');
@@ -134,11 +140,15 @@ jQuery(document).ready(function() {
 		var index = course_list.indexOf(course_to_delete);
 		course_list.splice(index, 1);
 		session_list.splice(index, 1);
-		// console.log(course_list);
-		// console.log(session_list);
 		$(this).parent().parent().remove();
+		console.log(course_list);
+		// remove 'show table' button if course list becomes empty
+		if (course_list.length < 1) {
+			$('#show_table').remove();
+			add_show_table_button = true;
+		}
 	});
 
-	console.log(get_time_map(['ELEC 1200', 'COMP 3711'], ['L1T1LA1C', 'L1T1']));
+	
 
 });
