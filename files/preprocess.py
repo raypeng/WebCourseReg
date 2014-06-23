@@ -3,6 +3,7 @@ import urllib2
 import json
 import re
 from itertools import product
+from operator import add
 
 INDEX = 'https://w5.ab.ust.hk/wcq/cgi-bin/1330/'
 
@@ -44,33 +45,21 @@ def map_time(s):
     return [tt for t in time for tt in t]
 
     
-def parse_datetime(str_list):
-    ''' input ~ ['L1 (3091)</td>\n<td>TuTh 09:00AM - 10:20AM',
-                 'T1A (3093)</td>\n<td>Th 06:00PM - 06:50PM',
-                 'T1B (3095)</td>\n<td>Fr 06:00PM - 06:50PM']
-        output ~ {'tut': {}, 'lab': {'LA1': [406, 407, 408, 409]}, 
-                 'credit': 4.0, 'lec': {'L1': [216, 217, 218, 416,
-                 417, 418]}}
+def parse_datetime(dt_dict):
+    ''' input ~ {'L3 (1012)': some html raw text containing sessions}
     '''
-    lec, tut, lab = {}, {}, {}
-    for s in str_list:
-        if '<br>' in s:
-            time_raw = re.search(r'(?<=<br>).*', s).group()
-        else:            
-            time_raw = re.search(r'(?<=<td>).*', s).group()
-        if time_raw == 'TBA':
-            continue
-        time = map_time(time_raw)
-        session = re.match(r'.*?(?= )', s).group()
-        if 'R' in session:
-            continue
-        elif 'LA' in session:
-            lab[session] = time
-        elif 'T' in session:
-            tut[session] = time
-        else:
-            lec[session] = time
-    
+    for k in dt_dict:
+        dt_dict[k] = re.findall(r'\w+ [\d: -PM]{17}', dt_dict[k])
+    dt, lec, tut, lab = {}, {}, {}, {}
+    for k, v in dt_dict.iteritems():
+        dt[k.split(' ')[0]] = reduce(add, map(map_time, v), [])
+    for k, v in dt.iteritems():
+        if 'LA' in k:
+            lab[k] = v
+        elif 'T' in k:
+            tut[k] = v
+        elif 'L' in k:
+            lec[k] = v
     return {'lec': lec, 'tut': tut, 'lab': lab}
            
 
@@ -95,10 +84,12 @@ def parse_str(s):
         info['matching'] = 1
     else:
         info['matching'] = 0
-    temp = re.findall(r'(?<=">).*</td>\n<td>.*?(?=</td>)', s)
-    datetime = parse_datetime(temp)
+    titles = re.findall(r'[\w ]{0,8}\(\d{4}\)', s)
+    times = re.split(r'[\w ]{0,8}\(\d{4}\)', s)[1:]
+    dt = dict(zip(titles, times))
+    datetime = parse_datetime(dt)
     return dict(info.items() + datetime.items())
-    
+
 
 def parse_url(INDEX_URL):
     response = urllib2.urlopen(INDEX_URL)
@@ -111,10 +102,8 @@ def parse_url(INDEX_URL):
         dept_url = INDEX_URL + 'subject/' + dept
         response = urllib2.urlopen(dept_url)
         html = response.read()
-        data = html.split('<script type="text/javascript">')
-        data = data[1]
-        courses = data.split('<div class="course">')
-        courses = courses[1:]
+        data = html.split('<script type="text/javascript">')[1]
+        courses = data.split('<div class="course">')[1:]
         for course in courses:
             info = parse_str(course)
             info = {info['code'][:4]: {info['code']: info}}
@@ -189,4 +178,4 @@ def json2js(infile, outfile):
             
 catalog = get_json(INDEX)
 save_json(catalog, 'new.json')
-json2js('new.json', 'data.js')
+json2js('new.json', '../js/data.js')
