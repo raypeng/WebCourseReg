@@ -1,0 +1,39 @@
+body {
+	background: url("bg.png");
+}
+
+body > h1 {
+	text-align: center;
+}
+
+body > h2 {
+	text-align: center;
+}
+
+#select_course {
+	text-align: center;
+}
+
+#course_list {
+	text-align: center;
+}
+
+#course_table {
+	width: 600px;
+	border-collapse: collapse;
+	vertical-align: center;
+	text-align: center;
+}
+
+#course_table td, th {
+	width: 200px;
+	text-align: center;
+}
+
+option {
+	text-align: center;
+}
+
+.flash {
+	color: red;
+}
