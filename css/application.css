@@ -47,3 +47,7 @@ option {
     font-size: 8.5pt;
     text-align: center;
 }
+
+#show_schedule {
+    font-size: 0pt;
+}

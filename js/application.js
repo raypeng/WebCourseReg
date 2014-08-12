@@ -152,7 +152,8 @@ jQuery(document).ready(function() {
     // show table when 'show table' button is clicked
     $('#show_table').live('click', function() {
 	var time_map = get_time_map(course_list, session_list);
-	$('#show_schedule').html(render_html(time_map));
+        var table = render_html(time_map);
+	$('#show_schedule').empty().append(table);
     });
 
 });
