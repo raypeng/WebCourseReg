@@ -1,57 +1,55 @@
 <html>
-	<head>
-		<title>Course Reg Assistant</title>
-		<!--<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>-->
+  <head>
+    <title>Course Reg Assistant</title>
     <link href="css/application.css" rel="stylesheet" type="text/css"/>
     <script src="js/jquery.min.js"></script>
-    <!--<script src="js/bootstrap.min.js"></script>-->
-		<script src="js/data.js"></script>
+    <script src="js/data.js"></script>
     <script src="js/render.js"></script>
-		<script src="js/application.js"></script>
-	</head>
-	<body>
-		<h1>
-			Welcome to Course Reg Assistant
-		</h1>
-		<h2>
-			You are expecting a replacement of the previous CourseReg.jar
-		</h2>
-		<hr>
-		<section class='box' id='select_course'>
-  		<h1>Add new courses</h1>
-		  <div class='control-group'>
-		    <label class="control-label" for="course_title">Course Info</label>
-		    <div class='controls'>
-		      <select id="course_title" name="course_title">
-		      	<option value="1">Please Select</option>
-		      </select>
-		      <select id="course_code" name="course_code">
-		      	<option value="1">Please Select</option>
-		      </select>
-		      <select id="course_session" name="course_session">
-		      	<option value="1">Please Select</option>
-		      </select>
-		      <button class='course_add_button'>Add</button>
+    <script src="js/application.js"></script>
+  </head>
+  <body>
+    <h1>
+      Welcome to Course Reg Assistant
+    </h1>
+    <h2>
+      Playful replacement of the previous CourseReg.jar
+    </h2>
+    <hr>
+    <section class='box' id='select_course'>
+      <h1>Add new courses</h1>
+      <div class='control-group'>
+	<label class="control-label" for="course_title">Course Info</label>
+	<div class='controls'>
+	  <select id="course_title" name="course_title">
+	    <option value="1">Please Select</option>
+	  </select>
+	  <select id="course_code" name="course_code">
+	    <option value="1">Please Select</option>
+	  </select>
+	  <select id="course_session" name="course_session">
+	    <option value="1">Please Select</option>
+	  </select>
+	  <button class='course_add_button'>Add</button>
           <p style='visibility: hidden' class='flash'>some text</p>
-		    </div>
-		  </div>
-		</section>
-		<br>
-		<section class='box' id='course_list'>
-			<h1>Course List<h1>
-			<table id='course_table' align='center'>
-				<tr>
-					<th>Course</th>
-					<th>Session</th>
-					<th>Change</th>
-				</tr>
-			</table>
-      <br>
+	</div>
+      </div>
+    </section>
+    <br>
+    <section class='box' id='course_list'>
+      <h1>Course List<h1>
+	<table id='course_table' align='center'>
+	  <tr>
+	    <th>Course</th>
+	    <th>Session</th>
+	    <th>Change</th>
+	  </tr>
+	</table>
+        <br>
     </session>
     <hr>
     <br>
     <br>
     <section class='box' id='show_schedule'>
     </section>
-	</body>
+  </body>
 </html>

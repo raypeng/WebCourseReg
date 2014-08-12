@@ -5,7 +5,7 @@ import re
 from itertools import product
 from operator import add
 
-INDEX = 'https://w5.ab.ust.hk/wcq/cgi-bin/1330/'
+INDEX = 'https://w5.ab.ust.hk/wcq/cgi-bin/1410/'
 
 def replace_dict(s, d):
     for key, val in d.iteritems():
@@ -29,14 +29,14 @@ def map_time(s):
                     '09:20': '09:30', '09:50': '10:00',
                     '10:20': '10:30', '10:50': '11:00',
                     '11:20': '11:30', '11:50AM': '12:00PM'}
-    time_map = {'09:00AM': 1,  '09:30AM': 2,  '10:00AM': 3,  '10:30AM': 4, 
-                '11:00AM': 5,  '11:30AM': 6,  '12:00PM': 7,  '12:30PM': 8, 
-                '01:00PM': 9,  '01:30PM': 10, '02:00PM': 11, '02:30PM': 12,
-                '03:00PM': 13, '03:30PM': 14, '04:00PM': 15, '04:30PM': 16, 
-                '05:00PM': 17, '05:30PM': 18, '06:00PM': 19, '06:30PM': 20, 
-                '07:00PM': 21, '07:30PM': 22, '08:00PM': 23, '08:30PM': 24,
-                '09:00PM': 25, '09:30PM': 26, '10:00PM': 27, '10:30PM': 28,
-                '11:00PM': 29, '11:30PM': 30}
+    time_map = {'08:00AM': 1,  '08:30AM': 2,  '09:00AM': 3,  '09:30AM': 4,
+		'10:00AM': 5,  '10:30AM': 6,  '11:00AM': 7,  '11:30AM': 8,
+                '12:00PM': 9,  '12:30PM': 10, '01:00PM': 11, '01:30PM': 12,
+                '02:00PM': 13, '02:30PM': 14, '03:00PM': 15, '03:30PM': 16,
+                '04:00PM': 17, '04:30PM': 18, '05:00PM': 19, '05:30PM': 20,
+                '06:00PM': 21, '06:30PM': 22, '07:00PM': 23, '07:30PM': 24,
+                '08:00PM': 25, '08:30PM': 26, '09:00PM': 27, '09:30PM': 28,
+                '10:00PM': 29, '10:30PM': 30, '11:00PM': 31, '11:30PM': 32}
     day, time = tuple(s.split(' ', 1))
     day_list = [int(char) for char in replace_dict(day, day_map)]
     time_str = replace_dict(replace_dict(time, time_replace), time_map)

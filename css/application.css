@@ -1,49 +1,49 @@
 body {
-	background: url("../files/bg.png");
+    background: url("../assets/bg.png");
 }
 
 body > h1 {
-	text-align: center;
+    text-align: center;
 }
 
 body > h2 {
-	text-align: center;
+    text-align: center;
 }
 
 #select_course {
-	text-align: center;
+    text-align: center;
 }
 
 #course_list {
-	text-align: center;
+    text-align: center;
 }
 
 #course_table {
-	width: 600px;
-	border-collapse: collapse;
-	vertical-align: center;
-	text-align: center;
+    width: 600px;
+    border-collapse: collapse;
+    vertical-align: center;
+    text-align: center;
 }
 
 #course_table td, th {
-	width: 200px;
-	text-align: center;
+    width: 200px;
+    text-align: center;
 }
 
 #show_table {
-	text-align: center;
+    text-align: center;
 }
 
 option {
-	text-align: center;
+    text-align: center;
 }
 
 .flash {
-	color: red;
+    color: red;
 }
 
 .timetable {
-  font-family:"Arial";
-  font-size: 8.5pt;
-  text-align: center;
+    font-family:"Arial";
+    font-size: 8.5pt;
+    text-align: center;
 }
